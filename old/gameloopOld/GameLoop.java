@@ -2,24 +2,23 @@ package com.ezrebclan.gameloop;
 
 public abstract class GameLoop {
 
-	private Thread loop;
-	
 	public final void startLoop() {
-		loop = new Thread(new Runnable() {
+		Thread loop = new Thread(new Runnable() {
+			
 			@Override
 			public void run() {
 				init();
 				while(shouldRun()) {
-					loopCycle();
+					cycle();
 				}
-				exit();
+				finish();
 			}
 		});
 		loop.start();
 	}
-
-	protected abstract boolean shouldRun();
+	
 	protected abstract void init();
-	protected abstract void loopCycle();
-	protected abstract void exit();
+	protected abstract void cycle();
+	protected abstract void finish();
+	protected abstract boolean shouldRun();
 }
